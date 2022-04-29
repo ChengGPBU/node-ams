@@ -1,23 +1,41 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { PhotoEntity } from '../photo/photo.entity';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, VersionColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  // 常见时间
+  @CreateDateColumn()
+  createTime: Date;
+
+  // 更新时间
+  @CreateDateColumn()
+  updateTime: Date;
+
+  // 软删除
+  @Column({
+    default: false
+  })
+  isDeleted: boolean
+
+
+  // 更新次数
+  @VersionColumn()
+  version: number
+
+
   @Column({ length: 20 })
   name: string;
 
-  @Column('varchar')
+  @Column('text')
   password: string;
 
-  @Column()
+
+  @Column('text')
+  salt: string;
+
+  @Column({default: true})
   status: boolean;
 
-  @OneToMany(
-    () => PhotoEntity,
-    photo => photo.user,
-  )
-  photos: [];
 }

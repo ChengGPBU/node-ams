@@ -1,7 +1,10 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Repository, Connection, getRepository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Repository, Connection } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from './users.entity';
+import { RegisterDTO } from './dto/register.dto';
+import { makeSalt, encryptPwd } from 'src/utils/cryptogram';
+import { LoginDTO } from '../auth/dto/login.dto';
 
 @Injectable()
 export class UsersService {
@@ -12,51 +15,58 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<UsersEntity[]> {
-    // relations: ['photos']， 联合查询
-    return await this.usersRepository.find({ relations: ['photos'] });
-    
-    // 或者使用queryBuilder
-    // return await getRepository(UsersEntity)
-    //   .createQueryBuilder("user")
-    //   .leftJoinAndSelect("user.photos", "photo")
-    //   .getMany()
+    return await this.usersRepository.find(undefined);
   }
 
-  async create(user): Promise<UsersEntity[]> {
-    const { name } = user;
-    const u = await getRepository(UsersEntity).findOne({ where: { name } });
-    //   .createQueryBuilder('users')
-    //   .where('users.name = :name', { name });
-    // const u = await qb.getOne();
-    if (u) {
-      throw new HttpException(
-        {
-          message: 'Input data validation failed',
-          error: 'name must be unique.',
-        },
-        HttpStatus.BAD_REQUEST,
-      );
+  async findOne(name: string): Promise<UsersEntity> {
+    return await this.usersRepository
+    .createQueryBuilder('users')
+    .where('users.name = :name', {name})
+    .getOne()  
+  }
+
+
+  /**
+   * 注册用户
+   * @param registerDTO 
+   * @returns 
+   */
+  async addUser(
+    registerDTO: RegisterDTO
+  ): Promise<any> {
+    const { name, password } = registerDTO;
+    const salt = makeSalt(); // 制作密码盐
+    const hashPassword = encryptPwd(password, salt);  // 加密密码
+    const newUser: UsersEntity = new UsersEntity()
+    newUser.name = name
+    newUser.password = hashPassword 
+    newUser.salt = salt
+    const result = await this.usersRepository.save(newUser)
+    delete result.password
+    delete result.salt
+    return {info: result}
+  }
+
+  /**
+   * 校验用户
+   * @param registerDTO 
+   */
+  async validateUser(loginDTO: LoginDTO): Promise<UsersEntity> {
+    const { name, password } = loginDTO;
+    const user = await this.usersRepository
+    .createQueryBuilder('users')
+    .where('users.name = :name', {name})
+    .getOne()
+    if (!user) {
+      throw new NotFoundException(`User ${name} not exists`)
     }
-    return await this.usersRepository.save(user);
-  }
-
-  async createMany(users: UsersEntity[]) {
-    const queryRunner = this.connection.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      users.forEach(async user => {
-        await queryRunner.manager.getRepository(UsersEntity).save(user);
-      });
-
-      await queryRunner.commitTransaction();
-    } catch (err) {
-      // since we have errors lets rollback the changes we made
-      await queryRunner.rollbackTransaction();
-    } finally {
-      // you need to release a queryRunner which was manually instantiated
-      await queryRunner.release();
+    console.log("~~~~~xxx~~~~~", user)
+    const { password: dbPwd, salt } = user
+    const currentHashPwd = encryptPwd(password, salt)
+    if (currentHashPwd !== dbPwd) {
+      throw new NotFoundException('密码错误')
     }
+    return user
   }
+
 }

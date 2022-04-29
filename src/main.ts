@@ -18,18 +18,20 @@ async function bootstrap() {
   // app.useGlobalPipes(new ValidationPipe());
 
   // 全局拦截器
-  // app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   // 设置swagger文档相关配置
   const swaggerOptions = new DocumentBuilder()
-    .setTitle('nest-starter api document')
-    .setDescription('nest starter project api document')
+    .setTitle('ams api document')
+    .setDescription('ams project api document')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerOptions);
-  SwaggerModule.setup('doc', app, document);
+  SwaggerModule.setup('ams-api', app, document);
 
-  await app.listen(3000);
+  await app.listen(3000, () => {
+    console.log("server start……, http://localhost:3000/hello?id=111")
+  });
 }
 bootstrap();

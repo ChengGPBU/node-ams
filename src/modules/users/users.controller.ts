@@ -1,26 +1,26 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
+import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
+import { RegisterDTO } from './dto/register.dto';
 import { UsersService } from './users.service';
+import { UserInfoResponse } from './vo/user-info';
 
-@Controller('users')
+@Controller('/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
+  @Get('findAllUser')
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Post()
-  async create(@Body() param) {
-    const newParam = { ...param, status: true };
-    await this.usersService.create(newParam);
-    return true;
+
+  @ApiBody({ type: RegisterDTO })
+  @ApiOkResponse({ description: '添加用户', type: UserInfoResponse })
+  @Post('addUser')
+  async addUser(
+    @Body() registerDTO: RegisterDTO
+  ): Promise<UserInfoResponse> {
+    return this.usersService.addUser(registerDTO)
   }
 
-  @Post('/many')
-  async createMany(@Body() users) {
-    const newUsers = users.map(user => ({ ...user, status: true }));
-    await this.usersService.createMany(newUsers);
-    return true
-  }
 }

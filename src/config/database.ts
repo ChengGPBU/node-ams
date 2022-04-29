@@ -1,12 +1,11 @@
 import { join } from 'path';
 export default {
   type: 'mysql',
-  // host: 'localhost',
-  socketPath: '/tmp/mysql.sock',
+  host: '47.110.42.63',
   port: 3306,
   username: 'root',
-  password: 'xiaoerxiaoer',
-  database: 'nest',
+  password: '123456',
+  database: 'ams',
   entities: [join(__dirname, '../', '**/**.entity{.ts,.js}')],
   synchronize: true,
 };

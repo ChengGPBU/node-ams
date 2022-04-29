@@ -119,6 +119,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## QQ交流群
-787585478
