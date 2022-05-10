@@ -60,9 +60,10 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User ${name} not exists`)
     }
-    console.log("~~~~~xxx~~~~~", user)
     const { password: dbPwd, salt } = user
     const currentHashPwd = encryptPwd(password, salt)
+
+
     if (currentHashPwd !== dbPwd) {
       throw new NotFoundException('密码错误')
     }

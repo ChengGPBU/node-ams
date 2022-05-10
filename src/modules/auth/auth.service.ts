@@ -23,18 +23,18 @@ export class AuthService {
 
   async login(loginDTO: LoginDTO): Promise<any> {
     const user = await this.usersService.validateUser(loginDTO)
-    const token = this.certificate(user)
+    const token =  await this.certificate(user)
     return {
+      name: user.name,
+      id: user.id,
       token,
     };
   }
 
 
-  async certificate(user: UsersEntity) {
+  async certificate(user: UsersEntity): Promise<string> {
     const payload = {name: user.name, id: user.id};
     const token = this.jwtService.sign(payload)
-    console.log("~~~~~~~~~xxx", payload);
-
     return token
   }
 }
