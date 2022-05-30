@@ -16,6 +16,7 @@ import { RoleGuardModule } from './modules/role-guard/role-guard.module';
 import { EmailModule } from './modules/email/email.module';
 import { UsersModule } from './modules/users/users.module';
 import { AlbumModule } from './modules/album/album.module';
+import { ApplicationModule } from './modules/application/application.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { AlbumModule } from './modules/album/album.module';
     EmailModule,
     UsersModule,
     AlbumModule,
+    ApplicationModule
   ],
 })
 export class AppModule {

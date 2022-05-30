@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, VersionColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
@@ -10,7 +10,7 @@ export class UsersEntity {
   createTime: Date;
 
   // 更新时间
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updateTime: Date;
 
   // 软删除
