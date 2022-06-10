@@ -10,6 +10,7 @@ export class AuthController {
   // 登录测试
   @Post('/auth/login')
   async login(@Body() loginDTO: LoginDTO) {
+    console.log("~~~~login~~~~~~~~~", loginDTO);
     return this.authService.login(loginDTO);
   }
 

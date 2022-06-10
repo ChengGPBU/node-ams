@@ -17,6 +17,8 @@ import { EmailModule } from './modules/email/email.module';
 import { UsersModule } from './modules/users/users.module';
 import { AlbumModule } from './modules/album/album.module';
 import { ApplicationModule } from './modules/application/application.module';
+import { MinioClientModule } from './minio-client/minio-client.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 @Module({
   imports: [
@@ -41,7 +43,9 @@ import { ApplicationModule } from './modules/application/application.module';
     EmailModule,
     UsersModule,
     AlbumModule,
-    ApplicationModule
+    ApplicationModule,
+    MinioClientModule,
+    FileUploadModule
   ],
 })
 export class AppModule {

@@ -19,8 +19,14 @@ export class ApplicationController {
 
   // 查询应用列表
   @UseGuards(AuthGuard('jwt'))
-  @Post('/list')
-  async queryAppList(@Body() queryAppListDTO: QueryAppListDTO) {
+  @Get('/list')
+  async queryAppList(@Query() query) {
+    const {pageSize, pageNum, type} = query;
+    const queryAppListDTO: QueryAppListDTO = {
+      pageSize,
+      pageNum,
+      type
+    }
     return this.applicationService.queryAppList(queryAppListDTO);
   }
 
@@ -40,7 +46,7 @@ export class ApplicationController {
 
   // 查询品牌列表
   @UseGuards(AuthGuard('jwt'))
-  @Post('/queryBrandList')
+  @Get('/queryBrandList')
   async queryBrandList() {
     return this.applicationService.queryBrandList();
   }

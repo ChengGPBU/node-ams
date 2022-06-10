@@ -22,6 +22,9 @@ export class ApplicationService {
 
   async queryAppList(queryAppListDTO: QueryAppListDTO): Promise<any> {
     const { pageSize, pageNum, type } = queryAppListDTO;
+    console.log("~~~~~~~~~~~~pageSize", pageSize);
+    console.log("~~~~~~~~~~~~pageNum", pageNum);
+
     const builder = this.applicationRepository
       .createQueryBuilder('application')
       .where('application.appType = :appType', { appType: type });
@@ -31,7 +34,9 @@ export class ApplicationService {
       .take(pageSize)
       .getManyAndCount();
 
-    return res;
+    const list = res[0]
+    const count = res[1]
+    return list;
   }
 
   async createBrand(createBrandDTO: CreateBrandDTO): Promise<any> {
@@ -50,9 +55,7 @@ export class ApplicationService {
   }
 
   async queryBrandList(): Promise<any> {
-    const res = await this.brandRepository.find({
-      relations: ['applications'],
-    });
+    const res = await this.brandRepository.find(undefined);
     return res;
   }
 

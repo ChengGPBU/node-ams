@@ -35,7 +35,7 @@ export class CreateAppDTO {
     enum: ['h5', 'mini', 'rn', 'app'],
     example: 'mini',
   })
-  @IsNotEmpty({ message: '应用平台' })
+  @IsNotEmpty({ message: '应用类型' })
   appType: string;
 
   @ApiProperty({
