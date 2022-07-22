@@ -19,6 +19,7 @@ import { AlbumModule } from './modules/album/album.module';
 import { ApplicationModule } from './modules/application/application.module';
 import { MinioClientModule } from './minio-client/minio-client.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
+import { JenkinsModule } from './modules/jenkins/jenkins.module';
 
 @Module({
   imports: [
@@ -45,7 +46,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     AlbumModule,
     ApplicationModule,
     MinioClientModule,
-    FileUploadModule
+    FileUploadModule,
+    JenkinsModule
   ],
 })
 export class AppModule {

@@ -30,6 +30,7 @@ export class MinioClientService {
       .createHash('md5')
       .update(tempFilename)
       .digest('hex');
+    // 获取图片扩展名
     const ext = file.originalname.substring(
       file.originalname.lastIndexOf('.'),
       file.originalname.length,
