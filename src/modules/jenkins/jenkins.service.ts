@@ -5,13 +5,14 @@ import { buildJob } from 'src/utils/jenkins-client';
 
 @Injectable()
 export class JenkinsService {
-  buildJob(buildJenkinDto: BuildJenkinDto) {
+
+  async buildJob(buildJenkinDto: BuildJenkinDto) {
     const { jobName } = buildJenkinDto
-    buildJob(jobName)
-    return 'This action start a new job';
+    const result = await buildJob(jobName)
+    return result;
   }
 
-  findAll() {
+  getBuildInfo() {
     return `This action returns all jenkins`;
   }
 

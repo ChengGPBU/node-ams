@@ -38,10 +38,7 @@ export class MinioClientService {
     const filename = hashedFileName + ext;
     const fileName = `${filename}`;
     const fileBuffer = file.buffer;
-    this.client.putObject(baseBucket, fileName, fileBuffer, function(err, res) {
-      if (err)
-        throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
-    });
+    await this.client.putObject(baseBucket, fileName, fileBuffer);
 
     return {
       url: `http://${config.MINIO_ENDPOINT}:${config.MINIO_PORT}/${config.MINIO_BUCKET}/${filename}`,

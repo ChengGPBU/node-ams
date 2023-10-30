@@ -5029,12 +5029,19 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jenkins@^0.28.1:
-  version "0.28.1"
-  resolved "https://registry.npmmirror.com/jenkins/-/jenkins-0.28.1.tgz#f7951798ee5d2bb501a831979b6b5ecc1a922a64"
-  integrity sha512-gcC4QUrP4VzdqOMHoVzh36XlJprxJkI2HGLQSY7w84KoCTVNDcR/8O00tYyXp9vrZOx4wl5zCXLVKMgH2IoyJQ==
+jenkins-api@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npmmirror.com/jenkins-api/-/jenkins-api-0.3.1.tgz#32fc3d892c6f22a51faa2ef47b3c9eb6745d3fff"
+  integrity sha512-CGM7cTvjf+tL5JBjsFKeNtHMbuFfuBVrOHp5jcA7pkyMGZxwzS3DOm2XfclmQ+qxh+swHT2Y7Njj3AxSVASL8A==
   dependencies:
-    papi "^0.29.0"
+    request "^2.81.0"
+
+jenkins@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/jenkins/-/jenkins-1.0.1.tgz#cf782afd5bf756036aea63bdcbcc89f6e4674c5a"
+  integrity sha512-AIcd38CBzro7fnjqUhuBlDXwIR/C1dhRNVz5pzKsHyEEGUk3zwHw1v5vouBap/y6FkNMxAMB7nwiesidOGXnqw==
+  dependencies:
+    papi "^1.1.0"
 
 jest-changed-files@^25.5.0:
   version "25.5.0"
@@ -6738,10 +6745,10 @@ pac-resolver@^5.0.0:
     ip "^1.1.5"
     netmask "^2.0.1"
 
-papi@^0.29.0:
-  version "0.29.1"
-  resolved "https://registry.npmmirror.com/papi/-/papi-0.29.1.tgz#7373e2c527f5117d61fd2a0e6c6b1dd72bf7f180"
-  integrity sha512-Y9ipSMfWuuVFO3zY9PlxOmEg+bQ7CeJ28sa9/a0veYNynLf9fwjR3+3fld5otEy7okUaEOUuCHVH62MyTmACXQ==
+papi@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/papi/-/papi-1.1.0.tgz#15eb3f10b219f478544d51b1b4da394062c67e65"
+  integrity sha512-w02EYhPtKYAGB8XJz+yi5WJPfSev1Zfo3vZrqqvHN6LvkIIJKfJ+VwAnL9EanBMcg6G8Bbwgxh7cqirfsJn2IQ==
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -7590,7 +7597,7 @@ request-promise-native@^1.0.7, request-promise-native@^1.0.8:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.88.0:
+request@^2.81.0, request@^2.88.0:
   version "2.88.2"
   resolved "https://registry.npmmirror.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==

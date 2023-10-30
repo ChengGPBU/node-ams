@@ -12,7 +12,7 @@ export class FileUploadService {
   async uploadImage(image: BufferedFile) {
     const uploadedImage = await this.minioClientService.upload(image);
     return {
-      imageUrl: uploadedImage.url,
+      ...uploadedImage,
     };
   }
 

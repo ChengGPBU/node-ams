@@ -18,6 +18,13 @@ export class TransformInterceptor<T>
     context: ExecutionContext,
     next: CallHandler<T>,
   ): Observable<Response<T>> {
-    return next.handle().pipe(map(data => ({ data, code: 200, msg: 'success' })));
+    const host = context.switchToHttp();
+    const request = host.getRequest<Request>();
+    return next.handle().pipe(map(data => {
+        if (request.url === '/file-upload/image') {
+          return { data, ...data, code: 200, msg: 'success'}
+        }
+        return { data, code: 200, msg: 'success' }
+    }));
   }
 }

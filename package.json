@@ -37,6 +37,7 @@
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "compressing": "^1.5.1",
+    "jenkins": "^1.0.1",
     "jenkins-api": "^0.3.1",
     "minio": "^7.0.28",
     "mysql2": "^2.3.3",
