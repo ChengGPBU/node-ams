@@ -82,7 +82,7 @@ export class ApplicationEntity {
   })
   brandId: number;
 
-  @ManyToOne(() => BrandEntity, brand => brand.applications)
+  @ManyToOne(() => BrandEntity, brand => brand.applications, {createForeignKeyConstraints: false})
   @JoinColumn({ name: 'brandId' })
   brand: BrandEntity;
 }
